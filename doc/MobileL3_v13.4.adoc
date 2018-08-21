@@ -1,0 +1,263 @@
+---
+Author: Tímea Moder
+Version: 1551-CNL 113 832, Rev. A
+Date: 2016-03-18
+
+---
+= MobileL3 (v13.4.0) Protocol Modules for TTCN-3 Toolset with TITAN, Function Description
+:author: Tímea Moder
+:revnumber: 1551-CNL 113 832, Rev. A
+:revdate: 2016-03-18
+:toc:
+
+= Functionality
+
+The MobileL3 v13.4.0 protocol module implements the message structures of the related protocol <<_5, [5]>> in a formalized way, using the standard specification language TTCN-3. This allows defining of test data (templates) in the TTCN-3 language and correctly encoding/decoding messages when executing test suites using the Titan TTCN-3 test environment.
+
+The MobileL3 v13.4.0 protocol module uses Titan’s RAW encoding attributes <<_1, [1]>> and hence is usable with the Titan test toolset only.
+
+== Implemented Protocols
+
+This set of protocol modules implements a subset of protocol messages and constants of the Mobile L3 protocol. It includes GMM, SM, RRM, SMS and SS. SM and GMM are based on 24.008 v13.4.0 (see <<_4, [4]>>), RRM are based on 44.018 v13.0.0 (see <<_5, [5]>>), SMS are based on 24.011 v13.0.0 (see <<_6, [6]>>) and 23.040 v13.0.0 (see <<_7, [7]>>) and SS are based on 24.080 v13.0.0 (see <<_8, [8]>>) with the modifications specified in <<modifications-deviations-related-to-the-protocol-specification, Modifications/Deviations Related to the Protocol Specification>>.
+
+[[modifications-deviations-related-to-the-protocol-specification]]
+== Modifications/Deviations Related to the Protocol Specification
+
+=== Unimplemented and Implemented Messages, Information Elements and Constants
+
+==== Messages for Mobility Management (MM)
+
+All the messages are implemented according to Table 9.2.1 and 10.2 of 24.008 (see <<_4, [4]>>).
+
+==== Messages for Circuit Switched Call Control (CC)
+
+All the messages are implemented according to Table 9.54 and 9.3 of 24.008 (see <<_4, [4]>>).
+
+==== GPRS Mobility Management (GMM) Messages
+
+All the messages are implemented according to Table 10.4 of 24.008 (see <<_4, [4]>>).
+
+==== GPRS Session Management (SM) Messages
+
+All the messages are implemented according to Table 10.4a of 24.008 (see <<_4, [4]>>).
+
+==== Common Information Elements (CommonIE)
+
+All the information elements implemented according to 10.5.1 of 24.008 (see <<_4, [4]>>).
+
+==== Radio Resource Management (RRM) Messages
+
+Some of the messages that are used are implemented according to table 9.1.1 of 44.018 (see <<_5, [5]>>).
+
+==== Short Message Service (SMS) Messages
+
+All the CP-messages are implemented according to 7.2 of 24.011 (see <<_6, [6]>>).
+
+All the RP-messages are implemented according to 7.3 of 24.011 (see <<_6, [6]>>).
+
+All the TPDU-messages are implemented according to 9.2.2 of 23.040 (see <<_7, [7]>>).
+
+==== Supplementary Service Management (SS) Messages
+
+All the SS-messages are implemented according to table 2.1 of 24.080 (see <<_8, [8]>>).
+
+=== Ericsson-Specific Changes
+
+None.
+
+== Backward Incompatibilities
+
+None.
+
+== System Requirements
+
+Protocol modules are a set of TTCN-3 source code files that can be used as part of TTCN-3 test suites only. Hence, protocol modules alone do not put specific requirements on the system used. However, in order to compile and execute a TTCN-3 test suite using the set of protocol modules the following system requirements must be satisfied:
+
+* Titan TTCN-3 Test Executor version CRL 113 200/5 R4A (5.4.pl0) or higher installed. For Installation Guide see <<_2, [2]>>.
+
+NOTE: This version of the test port is not compatible with Titan releases earlier than CRL 113 200/5 R4A.
+
+= Usage
+
+== Installation
+
+The set of protocol modules can be used in developing TTCN-3 test suites using any text editor; however, to make the work more efficient a TTCN3enabled text editor is recommended (for example `nedit`, `xemacs`). Since the MobileL3 protocol is used as a part of a TTCN-3 test suite, this requires TTCN-3 Test Executor be installed before the module can be compiled and executed together with other parts of the test suite. For more details on the installation of TTCN-3 Test Executor see the relevant section of <<_3, [3]>>.
+
+== Configuration
+
+None.
+
+== Examples
+
+None.
+
+= Interface Description
+
+== Top Level PDU
+
+The top level PDUs are the TTCN-3 records PDU_L3_MS_SGSN, PDU_L3_SGSN_MS, PDU_ML3_NW_MS, PDU_ML3_MS_NW.
+
+[[encoding-decoding-and-other-related-functions]]
+== Encoding/Decoding and Other Related Functions
+
+This product also contains encoding/decoding functions, which assure correct RAW encoding of messages when sent from TITAN and correct RAW decoding of messages when received by TITAN.
+
+=== Implemented Encoding and Decoding Functions
+
+[cols=3*,options=header]
+|===
+
+|Name |Type of formal parameters |Type of return value
+
+|`enc_PDU_L3_MS_SGSN` |PDU_L3_MS_SGSN |octetstring
+|`enc_PDU_L3_MS_SGSN_fast` |in PDU_L3_MS_SGSN, +
+out octetstring |
+|`dec_PDU_L3_MS_SGSN` |octetstring |PDU_L3_MS_SGSN
+|`dec_PDU_L3_MS_SGSN_backtrack` |in octetstring, +
+out PDU_L3_MS_SGSN |integer (0: success, +
+1: decoding failed)
+|`enc_PDU_L3_SGSN_MS` |PDU_L3_SGSN_MS |octetstring
+|`enc_PDU_L3_SGSN_MS_fast` |in PDU_L3_SGSN_MS, +
+out octetstring |
+|`dec_PDU_L3_SGSN_MS` |octetstring |PDU_L3_SGSN_MS
+|`dec_PDU_L3_SGSN_MS_backtrack` |in octetstring, +
+integer |(0: success, +
+1: decoding failed)
+|`enc_PDU_ML3_NW_MS` |PDU_ML3_NW_MS |octetstring
+|`enc_PDU_ML3_NW_MS_fast` |in PDU_ML3_NW_MS, +
+out octetstring |
+|`dec_PDU_ML3_NW_MS` |octetstring |PDU_ML3_NW_MS
+|`dec_PDU_ML3_NW_MS_backtrack` |in octetstring, +
+out PDU_ML3_NW_MS |integer (0: success, +
+1: decoding failed)
+|`enc_PDU_ML3_MS_NW` |PDU_ML3_MS_NW |octetstring
+|`enc_PDU_ML3_MS_NW_fast` |in PDU_ML3_MS_NW, +
+out octetstring |
+|`dec_PDU_ML3_MS_NW` |octetstring |PDU_ML3_MS_NW
+|`dec_PDU_ML3_MS_NW_backtrack` |in octetstring, +
+out PDU_ML3_MS_NW |integer (0: success, +
+1: decoding failed)
+|`enc_SS_FacilityInformation` |SS_FacilityInformation |octetstring
+|`dec_SS_FacilityInformation` |octetstring |SS_FacilityInformation
+|`dec_SS_FacilityInformation` |in octetstring, +
+out SS_FacilityInformation |integer (0: success, +
+1: decoding failed)
+|`enc_TPDU_RP_DATA_MS_SGSN_fast` |in TPDU_RP_DATA_MS_SGSN +
+out octetstring |
+|`dec_TPDU_RP_DATA_MS_SGSN_backtrack` |in octetstring +
+out TPDU_RP_DATA_MS_SGSN |integer (0: success, +
+1: decoding failed)
+|`enc_TPDU_RP_DATA_SGSN_MS_fast` |in TPDU_RP_DATA_SGSN_MS +
+out octetstring |
+|`dec_TPDU_RP_DATA_SGSN_MS_backtrack` |in octetstring +
+out TPDU_RP_DATA_SGSN_MS |integer (0: success, +
+1: decoding failed)
+|`enc_TPDU_RP_ACK_MS_SGSN_fast` |in TPDU_RP_ACK_MS_SGSN +
+out octetstring |
+|`dec_TPDU_RP_ACK_MS_SGSN_backtrack` |in octetstring +
+out TPDU_RP_ACK_MS_SGSN |integer (0: success, +
+1: decoding failed)
+|`enc_TPDU_RP_ACK_SGSN_MS_fast` |in TPDU_RP_ACK_SGSN_MS +
+out octetstring |
+|`dec_TPDU_RP_ACK_SGSN_MS_backtrack` |in octetstring +
+out TPDU_RP_ACK_SGSN_MS |integer (0: success, +
+1: decoding failed)
+|`enc_TPDU_RP_ERROR_MS_SGSN_fast` |in TPDU_RP_ERROR_MS_SGSN +
+out octetstring |
+|`dec_TPDU_RP_ERROR_MS_SGSN_backtrack` |in octetstring +
+out TPDU_RP_ERROR_MS_SGSN |integer (0: success, +
+1: decoding failed)
+|`enc_TPDU_RP_ERROR_SGSN_MS_fast` |in TPDU_RP_ERROR_SGSN_MS +
+out octetstring |
+|`dec_TPDU_RP_ERROR_SGSN_MS_backtrack` |in octetstring +
+out TPDU_RP_ERROR_SGSN_MS |integer (0: success, +
+1: decoding failed)
+|`enc_RPDU_SGSN_MS_fast` |in RPDU_SGSN_MS +
+out octetstring |
+|`dec_RPDU_SGSN_MS_backtrack` |in octetstring +
+out RPDU_SGSN_MS |integer (0: success, +
+1: decoding failed)
+|`enc_RPDU_MS_SGSN_fast` |in RPDU_MS_SGSN +
+out octetstring |
+|`dec_RPDU_MS_SGSN_backtrack` |in octetstring +
+out RPDU_MS_SGSN |integer (0: success, +
+1: decoding failed)
+|===
+
+= Terminology
+
+*TITAN:* +
+TTCN-3 Test Executor (see <<_3, [3]>>).
+
+== Abbreviations
+
+3GPP:: 3rd Generation Partnership Project
+
+GMM:: GPRS Mobility Management
+
+GPRS:: General Packet Radio Service
+
+IE:: Information Element
+
+L3:: Layer 3
+
+PDU:: Protocol Data Unit
+
+SM:: Session Management
+
+TTCN-3:: Testing and Test Control Notation version 3
+
+MM:: Mobility Management
+
+CC:: Circuit Switched Call Control
+
+RRM:: Radio Resource Management
+
+SMS:: Short Message Service
+
+SS:: Supplementary Service Management
+
+= References
+
+[[_1]]
+[1] ETSI ES 201 873-1 v4.5.1 (2013-04) +
+The Testing and Test Control Notation version 3. Part 1: Core Language
+
+[[_2]]
+[2] User Guide for TITAN TTCN-3 Test Executor
+
+[[_3]]
+[3] Programmer’s Technical Reference for Titan TTCN–3 Test Executor
+
+[[_4]]
+[4] 3GPP TS 24.008 V13.4.0 (2015-12), +
+3rd Generation Partnership Project; +
+Technical Specification Group Core Network and Terminals; +
+Mobile radio interface Layer 3 specification; +
+Core network protocols; Stage 3 (Release 13)
+
+[[_5]]
+[5] 3GPP TS 44.018 V13.0.0 (2015-12), +
+3rd Generation Partnership Project; +
+Technical Specification Group GSM/EDGE Radio Access Network; +
+Mobile radio interface Layer 3 specification; +
+Radio Resource Control (RRC) protocol; (Release 13)
+
+[[_6]]
+[6] 3GPP TS 24.011 V13.0.0 (2015-12), +
+3rd Generation Partnership Project; +
+Technical Specification Group Core Network and Terminals; +
+Point-to-Point (PP) Short Message Service (SMS) support on mobile radio interface (Release 13)
+
+[[_7]]
+[7] 3GPP TS 23.040 V13.0.0 (2015-12), +
+3rd Generation Partnership Project; +
+Technical Specification Group Core Network and Terminals; +
+Technical Realization of the Short Message Service (SMS) (Release 13)
+
+[[_8]]
+[8] 3GPP TS 24.080 V13.0.0 (2015-12), +
+3rd Generation Partnership Project; +
+Technical Specification Group Core Network and Terminals; +
+Mobile radio interface layer 3 supplementary services platform; +
+Formats and coding (Release 13)
